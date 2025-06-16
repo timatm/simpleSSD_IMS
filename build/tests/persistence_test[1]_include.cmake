@@ -1,5 +1,0 @@
-if(EXISTS "/home/timatm/mappingtest/build/tests/persistence_test[1]_tests.cmake")
-  include("/home/timatm/mappingtest/build/tests/persistence_test[1]_tests.cmake")
-else()
-  add_test(persistence_test_NOT_BUILT persistence_test_NOT_BUILT)
-endif()

@@ -1,5 +1,0 @@
-if(EXISTS "/home/timatm/mappingtest/build/tests/disk_test[1]_tests.cmake")
-  include("/home/timatm/mappingtest/build/tests/disk_test[1]_tests.cmake")
-else()
-  add_test(disk_test_NOT_BUILT disk_test_NOT_BUILT)
-endif()

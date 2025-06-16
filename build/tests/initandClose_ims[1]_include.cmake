@@ -1,5 +1,0 @@
-if(EXISTS "/home/timatm/mappingtest/build/tests/initandClose_ims[1]_tests.cmake")
-  include("/home/timatm/mappingtest/build/tests/initandClose_ims[1]_tests.cmake")
-else()
-  add_test(initandClose_ims_NOT_BUILT initandClose_ims_NOT_BUILT)
-endif()

@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/persistence_test.dir/persistence_test.cc.o -o persistence_test  ../lib/libgtest.a ../lib/libgtest_main.a ../src/libmapping_lib.a -lpthread ../lib/libgtest.a 

@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/interface_test.dir/interface_test.cc.o -o interface_test  ../lib/libgtest.a ../lib/libgtest_main.a ../src/libmapping_lib.a -lpthread ../lib/libgtest.a 

@@ -1,2 +1,0 @@
-/usr/bin/ar qc libmapping_lib.a CMakeFiles/mapping_lib.dir/IMS_interface.cc.o CMakeFiles/mapping_lib.dir/disk.cc.o CMakeFiles/mapping_lib.dir/lbn_pool.cc.o CMakeFiles/mapping_lib.dir/log.cc.o CMakeFiles/mapping_lib.dir/mapping_table.cc.o CMakeFiles/mapping_lib.dir/persistence.cc.o CMakeFiles/mapping_lib.dir/tree.cc.o
-/usr/bin/ranlib libmapping_lib.a

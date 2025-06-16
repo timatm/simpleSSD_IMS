@@ -1,5 +1,0 @@
-if(EXISTS "/home/timatm/mappingtest/build/tests/interface_test[1]_tests.cmake")
-  include("/home/timatm/mappingtest/build/tests/interface_test[1]_tests.cmake")
-else()
-  add_test(interface_test_NOT_BUILT interface_test_NOT_BUILT)
-endif()

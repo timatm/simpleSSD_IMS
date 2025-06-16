@@ -1,5 +1,0 @@
-if(EXISTS "/home/timatm/mappingtest/build/tests/mappingTable_test[1]_tests.cmake")
-  include("/home/timatm/mappingtest/build/tests/mappingTable_test[1]_tests.cmake")
-else()
-  add_test(mappingTable_test_NOT_BUILT mappingTable_test_NOT_BUILT)
-endif()
