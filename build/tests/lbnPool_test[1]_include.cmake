@@ -1,0 +1,5 @@
+if(EXISTS "/home/timatm/mappingtest/build/tests/lbnPool_test[1]_tests.cmake")
+  include("/home/timatm/mappingtest/build/tests/lbnPool_test[1]_tests.cmake")
+else()
+  add_test(lbnPool_test_NOT_BUILT lbnPool_test_NOT_BUILT)
+endif()

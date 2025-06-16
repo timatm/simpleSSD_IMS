@@ -1,0 +1,7 @@
+add_test([=[persistence_test.PersistenceTest.ReadWriteSStableBlock]=]  /home/timatm/mappingtest/build/tests/persistence_test [==[--gtest_filter=PersistenceTest.ReadWriteSStableBlock]==] --gtest_also_run_disabled_tests)
+set_tests_properties([=[persistence_test.PersistenceTest.ReadWriteSStableBlock]=]  PROPERTIES WORKING_DIRECTORY /home/timatm/mappingtest/build/tests SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
+add_test([=[persistence_test.PersistenceTest.ReadWriteSStablePage]=]  /home/timatm/mappingtest/build/tests/persistence_test [==[--gtest_filter=PersistenceTest.ReadWriteSStablePage]==] --gtest_also_run_disabled_tests)
+set_tests_properties([=[persistence_test.PersistenceTest.ReadWriteSStablePage]=]  PROPERTIES WORKING_DIRECTORY /home/timatm/mappingtest/build/tests SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
+add_test([=[persistence_test.PersistenceTest.ReadWriteMappingTable]=]  /home/timatm/mappingtest/build/tests/persistence_test [==[--gtest_filter=PersistenceTest.ReadWriteMappingTable]==] --gtest_also_run_disabled_tests)
+set_tests_properties([=[persistence_test.PersistenceTest.ReadWriteMappingTable]=]  PROPERTIES WORKING_DIRECTORY /home/timatm/mappingtest/build/tests SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
+set(  persistence_test_TESTS persistence_test.PersistenceTest.ReadWriteSStableBlock persistence_test.PersistenceTest.ReadWriteSStablePage persistence_test.PersistenceTest.ReadWriteMappingTable)

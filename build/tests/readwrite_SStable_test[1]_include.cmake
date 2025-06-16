@@ -1,0 +1,5 @@
+if(EXISTS "/home/timatm/mappingtest/build/tests/readwrite_SStable_test[1]_tests.cmake")
+  include("/home/timatm/mappingtest/build/tests/readwrite_SStable_test[1]_tests.cmake")
+else()
+  add_test(readwrite_SStable_test_NOT_BUILT readwrite_SStable_test_NOT_BUILT)
+endif()

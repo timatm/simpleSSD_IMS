@@ -1,0 +1,7 @@
+add_test([=[disk_test.DiskTest.OpenAndCloseDisk]=]  /home/timatm/mappingtest/build/tests/disk_test [==[--gtest_filter=DiskTest.OpenAndCloseDisk]==] --gtest_also_run_disabled_tests)
+set_tests_properties([=[disk_test.DiskTest.OpenAndCloseDisk]=]  PROPERTIES WORKING_DIRECTORY /home/timatm/mappingtest/build/tests SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
+add_test([=[disk_test.DiskTest.WriteAndReadPage]=]  /home/timatm/mappingtest/build/tests/disk_test [==[--gtest_filter=DiskTest.WriteAndReadPage]==] --gtest_also_run_disabled_tests)
+set_tests_properties([=[disk_test.DiskTest.WriteAndReadPage]=]  PROPERTIES WORKING_DIRECTORY /home/timatm/mappingtest/build/tests SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
+add_test([=[disk_test.DiskTest.WriteAndReadBlock]=]  /home/timatm/mappingtest/build/tests/disk_test [==[--gtest_filter=DiskTest.WriteAndReadBlock]==] --gtest_also_run_disabled_tests)
+set_tests_properties([=[disk_test.DiskTest.WriteAndReadBlock]=]  PROPERTIES WORKING_DIRECTORY /home/timatm/mappingtest/build/tests SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
+set(  disk_test_TESTS disk_test.DiskTest.OpenAndCloseDisk disk_test.DiskTest.WriteAndReadPage disk_test.DiskTest.WriteAndReadBlock)

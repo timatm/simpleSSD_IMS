@@ -1,0 +1,5 @@
+if(EXISTS "/home/timatm/mappingtest/build/tests/tree_test[1]_tests.cmake")
+  include("/home/timatm/mappingtest/build/tests/tree_test[1]_tests.cmake")
+else()
+  add_test(tree_test_NOT_BUILT tree_test_NOT_BUILT)
+endif()

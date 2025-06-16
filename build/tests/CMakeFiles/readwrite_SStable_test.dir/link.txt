@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/readwrite_SStable_test.dir/readwrite_SStable_test.cc.o -o readwrite_SStable_test  ../lib/libgtest.a ../lib/libgtest_main.a ../src/libmapping_lib.a -lpthread ../lib/libgtest.a 

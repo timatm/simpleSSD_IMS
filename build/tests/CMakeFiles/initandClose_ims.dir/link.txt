@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/initandClose_ims.dir/initandClose_ims.cc.o -o initandClose_ims  ../lib/libgtest.a ../lib/libgtest_main.a ../src/libmapping_lib.a -lpthread ../lib/libgtest.a 
