@@ -13,7 +13,7 @@ int Persistence::readMappingTable(uint64_t lbn,uint8_t *buffer,size_t size) {
         std::cerr << "[ERROR] Memory allocation failed.\n";
         return OPERATION_FAILURE;
     }
-    if (size != PAGE_SIZE){
+    if (size != IMS_PAGE_SIZE){
         pr_debug("[ERROR] Memory allocation failed.");
         return OPERATION_FAILURE;
     }
@@ -29,7 +29,7 @@ int Persistence::flushMappingTable(std::unordered_map<std::string, uint64_t>& ma
     uint64_t mappingPageLBN = sp_ptr_old->mapping_store;
     pr_info("Flush mapping table to disk at LBN: %lu", mappingPageLBN);
     uint64_t lpn = LBN2LPN(mappingPageLBN);
-    uint8_t *buffer = (uint8_t*)malloc(PAGE_SIZE);
+    uint8_t *buffer = (uint8_t*)malloc(IMS_PAGE_SIZE);
     int err = OPERATION_FAILURE;
     if(!ENABLE_DISK){
         return OPERATION_SUCCESS;
@@ -38,7 +38,7 @@ int Persistence::flushMappingTable(std::unordered_map<std::string, uint64_t>& ma
         std::cerr << "[ERROR] Memory allocation failed.\n";
         return OPERATION_FAILURE;
     }
-    memset(buffer, 0xFF, PAGE_SIZE);
+    memset(buffer, 0xFF, IMS_PAGE_SIZE);
 
     auto *page = reinterpret_cast<mappingTablePerPage*>(buffer);
     if(!page){
@@ -57,7 +57,7 @@ int Persistence::flushMappingTable(std::unordered_map<std::string, uint64_t>& ma
             pr_info("Flushed mapping table to disk at LPN: %lu", lpn);
             pr_info("Mapping store entry num:%d", page->entry_num);
             sp_ptr_new->mapping_page_num++;
-            memset(buffer, 0xFF, PAGE_SIZE);
+            memset(buffer, 0xFF, IMS_PAGE_SIZE);
             lpn++;
             idx = 0;
         }
@@ -140,7 +140,7 @@ int Persistence::readSStablePage(uint64_t lpn,uint8_t *buffer,size_t size){
         std::cerr << "[ERROR] Memory allocation failed.\n";
         return OPERATION_FAILURE;
     }
-    if (size != PAGE_SIZE){
+    if (size != IMS_PAGE_SIZE){
         pr_debug("[ERROR] Memory allocation failed.");
         return OPERATION_FAILURE;
     }

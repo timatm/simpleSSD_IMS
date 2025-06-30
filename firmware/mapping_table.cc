@@ -11,7 +11,7 @@ int Mapping::init_mapping_table(uint64_t mappingPageLBN,uint64_t page_num){
         pr_info("Invalid mapping page LBN, cannot initialize mapping table");
         return err;
     }
-    size_t size = PAGE_SIZE;
+    size_t size = IMS_PAGE_SIZE;
     uint8_t *buffer  = (uint8_t*)malloc(size);
     if (!buffer) {
         pr_info("Failed to allocate buffer for mapping table");

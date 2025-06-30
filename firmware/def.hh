@@ -10,10 +10,10 @@
 #define DIE_NUM 2
 #define PLANE_NUM 2
 #define BLOCK_NUM 32
-#define PAGE_NUM 128
-#define PAGE_SIZE 16384
+#define IMS_PAGE_NUM 128
+#define IMS_PAGE_SIZE 16384
 
-#define BLOCK_SIZE PAGE_SIZE*PAGE_NUM
+#define BLOCK_SIZE IMS_PAGE_SIZE*IMS_PAGE_NUM
 
 #define LOG2_CEIL(x) ( \
     ((x) <= 1) ? 0 : \
@@ -37,14 +37,14 @@
 #define MAPPINGLBN 1
 
 #define LBN_NUM ( CHANNEL_NUM * PACKAGE_NUM * DIE_NUM * PLANE_NUM * BLOCK_NUM )
-#define LBN_SIZE ( PAGE_SIZE * PAGE_NUM )
+#define LBN_SIZE ( PAGE_SIZE * IMS_PAGE_NUM )
 
 #define LBN2PLANE(LBA)  ( (LBA >> BLOCK_BITS) % PLANE_NUM )
 #define LBN2DIE(LBA)    ( (LBA >> (PLANE_BITS + BLOCK_BITS)) % DIE_NUM )
 #define LBN2PACKAGE(LBA)( (LBA >> (DIE_BITS + PLANE_BITS + BLOCK_BITS)) % PACKAGE_NUM )
 #define LBN2CH(LBA)     ( (LBA >> (PACKAGE_BITS + DIE_BITS + PLANE_BITS + BLOCK_BITS)) % CHANNEL_NUM )
 
-#define LBN2LPN(lbn) (lbn * PAGE_NUM) 
+#define LBN2LPN(lbn) (lbn * IMS_PAGE_NUM) 
 
 #define OPERATION_SUCCESS 0
 #define OPERATION_FAILURE -1
@@ -69,7 +69,6 @@
 
 struct hostInfo
 {
-    int opcode;
     uint64_t lbn;
     std::string filename;
     int levelInfo;
@@ -116,7 +115,7 @@ struct super_page{
         sizeof(logOffset) +
         sizeof(usedLBN_num) +
         sizeof(lastUsedChannel);
-    uint8_t reserved[PAGE_SIZE - header_size];
+    uint8_t reserved[IMS_PAGE_SIZE - header_size];
     super_page(uint64_t m,uint64_t mapping_store,uint64_t log_store):
         magic(m),
         mapping_store(mapping_store),
@@ -129,7 +128,7 @@ struct super_page{
         usedLBN_num(INVALIDLBN),
         lastUsedChannel(INVALIDCH){}
 };
-static_assert(sizeof(super_page) == PAGE_SIZE, "super_page must be same to page size");
+static_assert(sizeof(super_page) == IMS_PAGE_SIZE, "super_page must be same to page size");
 #pragma pack(pop)
 // [IMS setting end]
 
@@ -147,7 +146,7 @@ struct mappingEntry {
         memset(fileName, 0, sizeof(fileName));
     }
 };
-#define MAPPING_TABLE_ENTRIES ( (PAGE_SIZE / sizeof(mappingEntry))-1 ) // 16384 / 64(mapping entry) = 128 , 128 - 1(header) = 127
+#define MAPPING_TABLE_ENTRIES ( (IMS_PAGE_SIZE / sizeof(mappingEntry))-1 ) // 16384 / 64(mapping entry) = 128 , 128 - 1(header) = 127
 
 struct mappingTablePerPage {
     
@@ -162,7 +161,7 @@ struct mappingTablePerPage {
     };
     
     mappingEntry entry[MAPPING_TABLE_ENTRIES]; 
-    uint8_t reserved2[PAGE_SIZE - (MAPPING_TABLE_ENTRIES * sizeof(mappingEntry)) - sizeof(header)]; // 填滿16KB
+    uint8_t reserved2[IMS_PAGE_SIZE - (MAPPING_TABLE_ENTRIES * sizeof(mappingEntry)) - sizeof(header)]; // 填滿16KB
 
     mappingTablePerPage() {
         memset(this, 0xFF, sizeof(mappingTablePerPage));
@@ -207,19 +206,19 @@ struct slotFormat {
     } info;                     // = 8 B
 };
 
-#define SLOT_NUM PAGE_SIZE/sizeof(slotFormat)
+#define SLOT_NUM IMS_PAGE_SIZE/sizeof(slotFormat)
 struct pageFormat
 {
     slotFormat slot[SLOT_NUM];
 };
 struct  SStableFormat
 {
-    pageFormat SStablePerPage[PAGE_NUM];
+    pageFormat SStablePerPage[IMS_PAGE_NUM];
 };
 
 
 static_assert(sizeof(slotFormat) == 64, "slotFormat must be 64 bytes");
-static_assert(sizeof(pageFormat) == PAGE_SIZE ,"pageformat must be same to page size");
+static_assert(sizeof(pageFormat) == IMS_PAGE_SIZE ,"pageformat must be same to page size");
 static_assert(sizeof(SStableFormat) == BLOCK_SIZE ,"SStableFormat must be same to block size");
 #pragma pack(pop)
 
@@ -233,9 +232,9 @@ static_assert(sizeof(SStableFormat) == BLOCK_SIZE ,"SStableFormat must be same t
 
 #pragma pack(push, 1)
 struct logLBNListRecord {
-    uint64_t lbn[PAGE_SIZE / sizeof(uint64_t)]; // The LBN of the log record
+    uint64_t lbn[IMS_PAGE_SIZE / sizeof(uint64_t)]; // The LBN of the log record
 };
-static_assert(sizeof(logLBNListRecord) == PAGE_SIZE, "logLBNListRecord must be same to page size");
+static_assert(sizeof(logLBNListRecord) == IMS_PAGE_SIZE, "logLBNListRecord must be same to page size");
 #pragma pack(pop)
 // [Log file setting end]
 

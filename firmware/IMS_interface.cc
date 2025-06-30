@@ -114,7 +114,7 @@ int IMS_interface::init_IMS(){
     int err = OPERATION_FAILURE;
     pr_info("Initialize IMS interface");
     persistenceManager.disk.open("disk.bin");
-    uint8_t *buffer = (uint8_t *)malloc(PAGE_SIZE);
+    uint8_t *buffer = (uint8_t *)malloc(IMS_PAGE_SIZE);
     if(!buffer){
         pr_info("Buffer malloc failed");
         return OPERATION_FAILURE;
@@ -200,12 +200,12 @@ int IMS_interface::close_IMS(){
         pr_info("Flushing log record list to disk failed");
         return OPERATION_FAILURE;
     }
-    uint8_t *buffer = (uint8_t *)malloc(PAGE_SIZE);
+    uint8_t *buffer = (uint8_t *)malloc(IMS_PAGE_SIZE);
     if(!buffer){
         pr_info("Allocating memory for super page buffer failed");
         return OPERATION_FAILURE;
     }
-    memset(buffer, 0, PAGE_SIZE);
+    memset(buffer, 0, IMS_PAGE_SIZE);
     super_page *sp = (super_page *)buffer;
     sp->magic = MAGIC;
     sp->mapping_store = sp_ptr_old->mapping_store;

@@ -14,7 +14,7 @@ int Log::init_logRecordList(uint64_t logStoreLBN,uint64_t page_num){
         return OPERATION_FAILURE;
     }
     uint64_t lpn = LBN2LPN(logStoreLBN);
-    uint8_t *buffer = (uint8_t *)malloc(PAGE_SIZE);
+    uint8_t *buffer = (uint8_t *)malloc(IMS_PAGE_SIZE);
     if(!buffer){
         pr_info("Allocating memory for log record list buffer failed");
         return OPERATION_FAILURE;
@@ -27,7 +27,7 @@ int Log::init_logRecordList(uint64_t logStoreLBN,uint64_t page_num){
             return OPERATION_FAILURE;
         }
         logLBNListRecord *logRecordPtr = (logLBNListRecord *)buffer;
-        for (int i = 0; i < PAGE_SIZE / sizeof(uint64_t); i++) {
+        for (int i = 0; i < IMS_PAGE_SIZE / sizeof(uint64_t); i++) {
             if (logRecordPtr->lbn[i] != INVALIDLBN) {
                 logRecordList.push_back(logRecordPtr->lbn[i]);
             }
@@ -65,13 +65,13 @@ int Log::flush_logRecordList() {
 
     uint64_t lbn = sp_ptr_old->log_store;
     uint64_t lpn = LBN2LPN(lbn);
-    uint8_t *buffer = (uint8_t *)malloc(PAGE_SIZE);
+    uint8_t *buffer = (uint8_t *)malloc(IMS_PAGE_SIZE);
     if (!buffer) {
         pr_info("Allocating memory for log record list buffer failed");
         return OPERATION_FAILURE;
     }
 
-    memset(buffer, 0, PAGE_SIZE);
+    memset(buffer, 0, IMS_PAGE_SIZE);
     logLBNListRecord *logRecordPtr = (logLBNListRecord *)buffer;
     int index = 0;
 
@@ -87,7 +87,7 @@ int Log::flush_logRecordList() {
         logRecordPtr->lbn[index++] = lbn;
         logRecordList.pop_front();
 
-        if (index == PAGE_SIZE / sizeof(uint64_t)) {
+        if (index == IMS_PAGE_SIZE / sizeof(uint64_t)) {
             int err = persistenceManager.disk.write(lpn, buffer);
             if (err == OPERATION_FAILURE) {
                 pr_info("Flushing log record list to disk failed at LPN: %lu", lpn);
@@ -98,7 +98,7 @@ int Log::flush_logRecordList() {
             lpn++;
             sp_ptr_new->log_page_num++;
             index = 0;
-            memset(buffer, 0, PAGE_SIZE);
+            memset(buffer, 0, IMS_PAGE_SIZE);
             logRecordPtr = (logLBNListRecord *)buffer;  // ✅ reset 指標
         }
     }
