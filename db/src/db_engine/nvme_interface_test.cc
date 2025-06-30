@@ -30,7 +30,6 @@ int main(){
     // config.metadata_len = 0;
     // config.metadata =  NULL;
     // err = ims_nvme_write(config, fd);
-    err = ims_init(fd);
     // config.data_len = 4096; // data length
     // void *data = aligned_alloc(4096, config.data_len);
     // if (!data) {

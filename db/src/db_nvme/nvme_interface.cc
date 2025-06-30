@@ -3,8 +3,8 @@ extern "C" {
 #include <libnvme.h>
 }
 
-#include "nvme_interface.hh"
 #include "debug.hh"
+#include "nvme_interface.hh"
 #include <stdio.h>
 #include <unistd.h>
 #include <limits.h>
@@ -73,23 +73,6 @@ int ims_init(nmc_config_t* config,int fd){
     return err;
 }
 
-int ims_init(nmc_config_t* config,int fd){
-    int err = 0;
-    nmc_config_t* config;
-    init_nmc_config(config);
-    config->OPCODE = OPCODE_INIT_IMS;
-    config->PSDT      = 0;
-    config->PRP1      = (uintptr_t)nullptr;
-    err = pass_io_command(config,fd);
-    if(err == 0){
-        pr("Init IMS success");
-    }
-    else{
-        pr("Init IMS failed");
-        pr("error code: 0x%x", err);
-    }
-    return err;
-}
 
 int ims_nvme_write(nmc_config_t* config,int fd){
     int err;
